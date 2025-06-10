@@ -51,27 +51,26 @@ window.addEventListener("DOMContentLoaded", () => {
   passwordInput.value = localStorage.getItem("password") || "";
 });
 
-
 // 3
 
-import template from "./template.hbs";
-import { products } from "./data";
-
-const productContainer = document.getElementById("productContainer");
 const searchInput = document.getElementById("searchInput");
+const container = document.getElementById("productContainer");
+const source = document.getElementById("product-template").innerHTML;
+const template = Handlebars.compile(source);
 
-function renderProducts(filteredProducts) {
-  productContainer.innerHTML = template({ products: filteredProducts });
-}
-
-renderProducts(products);
+const render = (items) => {
+  const html = template({ products: items });
+  container.innerHTML = html;
+};
 
 searchInput.addEventListener("input", () => {
-  const query = searchInput.value.toLowerCase().trim();
+  const query = searchInput.value.toLowerCase();
   const filtered = products.filter(
-    (product) =>
-      product.name.toLowerCase().includes(query) ||
-      product.description.toLowerCase().includes(query)
+    (p) =>
+      p.name.toLowerCase().includes(query) ||
+      p.description.toLowerCase().includes(query)
   );
-  renderProducts(filtered);
+  render(filtered);
 });
+
+render(products);

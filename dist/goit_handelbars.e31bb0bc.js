@@ -117,7 +117,27 @@ parcelRequire = (function (modules, cache, entry, globalName) {
   }
 
   return newRequire;
-})({"node_modules/handlebars/dist/handlebars.runtime.js":[function(require,module,exports) {
+})({"products.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+var _default = exports.default = [{
+  name: "iPhone",
+  price: "$999",
+  description: "Смартфон Apple"
+}, {
+  name: "Galaxy",
+  price: "$899",
+  description: "Смартфон Samsung"
+}, {
+  name: "Pixel",
+  price: "$799",
+  description: "Смартфон Google"
+}];
+},{}],"node_modules/handlebars/dist/handlebars.runtime.js":[function(require,module,exports) {
 var define;
 var global = arguments[3];
 /**!
@@ -2467,21 +2487,21 @@ var templateFunction = _handlebars.default.template({
           "column": 33
         }
       }
-    }) : helper)) + "</h2>\r\n        <p class=\"price\">Ціна: " + alias4((helper = (helper = lookupProperty(helpers, "price") || (depth0 != null ? lookupProperty(depth0, "price") : depth0)) != null ? helper : alias2, _typeof(helper) === alias3 ? helper.call(alias1, {
+    }) : helper)) + "</h2>\r\n        <p class=\"price\">Price: " + alias4((helper = (helper = lookupProperty(helpers, "price") || (depth0 != null ? lookupProperty(depth0, "price") : depth0)) != null ? helper : alias2, _typeof(helper) === alias3 ? helper.call(alias1, {
       "name": "price",
       "hash": {},
       "data": data,
       "loc": {
         "start": {
           "line": 5,
-          "column": 31
+          "column": 32
         },
         "end": {
           "line": 5,
-          "column": 40
+          "column": 41
         }
       }
-    }) : helper)) + "$</p>\r\n        <p class=\"description\">" + alias4((helper = (helper = lookupProperty(helpers, "description") || (depth0 != null ? lookupProperty(depth0, "description") : depth0)) != null ? helper : alias2, _typeof(helper) === alias3 ? helper.call(alias1, {
+    }) : helper)) + "</p>\r\n        <p class=\"description\">" + alias4((helper = (helper = lookupProperty(helpers, "description") || (depth0 != null ? lookupProperty(depth0, "description") : depth0)) != null ? helper : alias2, _typeof(helper) === alias3 ? helper.call(alias1, {
       "name": "description",
       "hash": {},
       "data": data,
@@ -2527,34 +2547,11 @@ var templateFunction = _handlebars.default.template({
   "useData": true
 });
 var _default = exports.default = templateFunction;
-},{"handlebars/dist/handlebars.runtime":"node_modules/handlebars/dist/handlebars.runtime.js"}],"data.js":[function(require,module,exports) {
+},{"handlebars/dist/handlebars.runtime":"node_modules/handlebars/dist/handlebars.runtime.js"}],"index.js":[function(require,module,exports) {
 "use strict";
 
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.products = void 0;
-var products = exports.products = [{
-  id: 1,
-  name: "Laptop",
-  price: 1500,
-  description: "A high-performance laptop for all your needs."
-}, {
-  id: 2,
-  name: "Smartphone",
-  price: 700,
-  description: "A modern smartphone with an excellent camera."
-}, {
-  id: 3,
-  name: "Headphones",
-  price: 200,
-  description: "Noise-cancelling headphones for better focus."
-}];
-},{}],"index.js":[function(require,module,exports) {
-"use strict";
-
+var _products = _interopRequireDefault(require("./products.js"));
 var _template = _interopRequireDefault(require("./template.hbs"));
-var _data = require("./data");
 function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e }; }
 var bookmarkInput = document.getElementById("bookmarkInput");
 var addBookmarkBtn = document.getElementById("addBookmarkBtn");
@@ -2600,22 +2597,22 @@ window.addEventListener("DOMContentLoaded", function () {
 
 // 3
 
-var productContainer = document.getElementById("productContainer");
+var container = document.getElementById("productContainer");
 var searchInput = document.getElementById("searchInput");
-function renderProducts(filteredProducts) {
-  productContainer.innerHTML = (0, _template.default)({
-    products: filteredProducts
+var render = function render(items) {
+  container.innerHTML = (0, _template.default)({
+    products: items
   });
-}
-renderProducts(_data.products);
+};
 searchInput.addEventListener("input", function () {
-  var query = searchInput.value.toLowerCase().trim();
-  var filtered = _data.products.filter(function (product) {
-    return product.name.toLowerCase().includes(query) || product.description.toLowerCase().includes(query);
+  var query = searchInput.value.toLowerCase();
+  var filtered = _products.default.filter(function (p) {
+    return p.name.toLowerCase().includes(query) || p.description.toLowerCase().includes(query);
   });
-  renderProducts(filtered);
+  render(filtered);
 });
-},{"./template.hbs":"template.hbs","./data":"data.js"}],"node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
+render(_products.default);
+},{"./products.js":"products.js","./template.hbs":"template.hbs"}],"node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
 var OldModule = module.bundle.Module;
@@ -2640,7 +2637,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "56152" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "51634" + '/');
   ws.onmessage = function (event) {
     checkedAssets = {};
     assetsToAccept = [];

@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/handlebars@latest/dist/handlebars.min.js"></script>
 </head>
 <body>
     <style>
@@ -150,11 +151,23 @@
         <input type="password" id="password" placeholder="Пароль">
         <button id="saveBtn">Зберегти</button></div>
         <!-- 3 -->
-        <input type="text" id="search" placeholder="Пошук...">
+        <input type="text" id="searchInput" placeholder="Пошук..." />
         <div id="productContainer"></div>
-
         
+        <script id="product-template" type="text/x-handlebars-template">
+                    <ul class="product-list">
+                      {{#each products}}
+                      <li class="product-item">
+                        <h2 class="name">{{name}}</h2>
+                        <p class="price">Price: {{price}}</p>
+                        <p class="description">{{description}}</p>
+                      </li>
+                      {{/each}}
+                    </ul>
+            </script>
+    <script src="./products.js" type="module"></script>
     <script src="./index.js" type="module"></script>
+    
     
 </body>
 </html>
